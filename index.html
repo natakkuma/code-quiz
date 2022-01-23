@@ -26,15 +26,23 @@
 
         <!--Timer Section-->
         <div class="timer">
-            
+            <h3 id="timeDisplay" class="timer">
+                Time: <span id="timer">0</span></h3>
         </div>
 
     </header>
 
     <!--Main-->
     <main>
-        <!--Quiz Intro-->
-        <h1 class ="quiz-intro"> Coding Quiz Challenge</h1>
+        <!--Quiz Start-->
+        <h1 class ="quiz-start"> Coding Quiz Challenge</h1>
+
+        <p class="quiz-start">
+            Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score and the time by ten seconds!
+        </p>
+
+        <!--Start Button-->
+        <button class="quiz-start" id="start-btn" type="button" onclick="function to startQuiz()">Start Quiz</button>
 
         <!--Quiz Content-->
 
@@ -42,11 +50,26 @@
             <h2 id="question" class="quiz"></h2>
 
             <!--Multiple Choice Selection-->
+            <div class="multipleChoice">
+
+                <!--Multiple Choice Button 1-->
+                <button class="mc" id="mc1" type="button" onclick="function to checkAnswer()"></button>
+
+                <!--Multiple Choice Button 2-->
+                <button class="mc" id="mc2" type="button" onclick="function to checkAnswer()"></button>
+
+                <!--Multiple Choice Button 3-->
+                <button class="mc" id="mc3" type="button" onclick="function to checkAnswer()"></button>
+
+                <!--Multiple Choice Button 4-->
+                <button class="mc" id="mc4" type="button" onclick="function to checkAnswer()"></button>
+
+            </div>
 
         <!--JavaScript Link-->
         <script src="./assets/js/script.js"></script>
 
-        <!--Footer-->
+        
     </main>
     
     
