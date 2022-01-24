@@ -18,36 +18,42 @@
     <!--Header-->
     <header>
 
+
         <!--View High Scores Section-->
-        <div class ="high-score">
+        <div class ="high-score col-2">
             <!--Button Element-->
             <button class="high-score-button high-score" id="scores" type="button"> View High Scores</button>
         </div>
 
+        <div class="col-9"></div>
+
         <!--Timer Section-->
-        <div class="timer">
+        <div class="col-1">
             <h3 id="timeDisplay" class="timer">
                 Time: <span id="timer">0</span></h3>
+        </div>
+
         </div>
 
     </header>
 
     <!--Main-->
     <main>
+        <section class="quiz">
         <!--Quiz Start-->
-        <h1 class ="quiz-start"> Coding Quiz Challenge</h1>
+        <h1 class ="quizStart"> Coding Quiz Challenge</h1>
 
-        <p class="quiz-start">
-            Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score and the time by ten seconds!
+        <p class="quizStart">
+            Try to answer the following code-related questions within the time limit. <br>  Keep in mind that incorrect answers will penalize your score and the time by ten seconds!
         </p>
-
+        <br>
         <!--Start Button-->
         <button class="quiz-start" id="start-btn" type="button" onclick="function to startQuiz()">Start Quiz</button>
 
         <!--Quiz Content-->
 
             <!--Question-->
-            <h2 id="question" class="quiz"></h2>
+            <h2 id="question" class="quizQ"></h2>
 
             <!--Multiple Choice Selection-->
             <div class="multipleChoice">
@@ -55,16 +61,23 @@
                 <!--Multiple Choice Button 1-->
                 <button class="mc" id="mc1" type="button" onclick="function to checkAnswer()"></button>
 
+                <br>
+
                 <!--Multiple Choice Button 2-->
                 <button class="mc" id="mc2" type="button" onclick="function to checkAnswer()"></button>
 
+                <br>
+
                 <!--Multiple Choice Button 3-->
                 <button class="mc" id="mc3" type="button" onclick="function to checkAnswer()"></button>
+
+                <br>
 
                 <!--Multiple Choice Button 4-->
                 <button class="mc" id="mc4" type="button" onclick="function to checkAnswer()"></button>
 
             </div>
+        </section>
 
         <!--JavaScript Link-->
         <script src="./assets/js/script.js"></script>

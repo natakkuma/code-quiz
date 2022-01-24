@@ -1,0 +1,75 @@
+/*Style Sheet for Coding Quiz Challenge*/
+
+/*General*/
+* {
+    font-family: sans-serif;
+    padding: 10px;
+   
+    
+}
+
+/*High Score*/
+.high-score {
+    text-align: left;
+    color: rgb(226, 96, 167);
+    font-size: 14px;
+    display: inline-block;
+
+}
+
+
+
+/*Timer*/
+#timeDisplay {
+    font-size: 20px;
+    display: inline-block;
+    color: rgb(226, 96, 167);
+    
+    
+}
+
+/*Quiz*/
+.quiz {
+    text-align: center;
+    padding: 20px;
+}
+
+/*Quiz Start*/
+.quiz h1 {
+    font-size: 40px;
+    color: rgb(226, 96, 167);
+}
+
+.quiz p {
+    font-size: 20px;
+    display: inline-block;
+    width: 60%;
+
+}
+
+#start-btn {
+    font-size: 22px;
+    color: white;
+    background-color: rgb(226, 96, 167);
+    border-radius: 10px;
+    border-color: white;
+}
+
+
+
+/*Quiz Content*/
+.mc {
+
+    font-size: 22px;
+    color: white;
+    background-color: rgb(226, 96, 167);
+    border-radius: 10px;
+    border-color: white;
+
+    margin-left: 20%;
+
+}
+
+.multipleChoice , .quizQ {
+    display: none;
+}
