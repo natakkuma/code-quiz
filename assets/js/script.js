@@ -80,6 +80,10 @@ function startQuiz() {
     quizContent(questionNumber);
 };
 
+//EventListener
+//When Start Quiz Button is Clicked - startQuiz Function Starts
+startBtn.addEventListener("click", startQuiz);
+
 //startTimer Function - Timer Starts 
 function startTimer() {
 
@@ -130,3 +134,7 @@ function checkAnswer(answer) {
 }
 
 //APPLICATIONS
+
+//EVENT LISTENERS
+
+
