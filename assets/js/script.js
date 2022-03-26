@@ -78,6 +78,8 @@ function startQuiz() {
 
     //Set Questions
     quizContent(questionNumber);
+
+    console.log("start button clicked");
 };
 
 //EventListener
