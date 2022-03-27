@@ -6,14 +6,17 @@
     
 
     //Quiz Start Variables
+    var quizStart = document.getElementById("quizIntro");
     var startBtn = document.getElementById("startBtn");
 
     //Quiz Content Variables
-    var question = document.getElementById("question");
+    var quizContent = document.getElementById("quizContent");
+    var questionQ = document.getElementById("question");
     var mc1 = document.getElementById("mc1");
     var mc2 = document.getElementById("mc2");
     var mc3 = document.getElementById("mc3");
     var mc4 = document.getElementById("mc4");
+    var checkAnswer = document.getElementById("checkAnswer");
 
     //Quiz Questions Array
     var questions = [
@@ -54,6 +57,13 @@
         }
     ];
 
+    //Score Display Variables
+    var scoreDisplay = document.getElementById("scoreDisplay");
+    var finalScore = document.getElementById("finalScore");
+     
+    //Player Initials Form Variables
+
+    //High Score List Variables
 
     //Quiz Scoring Variables
     var score = 0;
@@ -69,15 +79,14 @@ function startQuiz() {
     
     //Display Quiz Content
     quizStart.style.display = "none";
-    quizQ.style.display = "block";
-    multipleChoice.style.display = "block"
+    quizContent.style.display = "block";
 
     //Set Time
     timeLeft = 75;
     startTimer();
 
     //Set Questions
-    quizContent(questionNumber);
+    playQuiz(questionNumber);
 
     console.log("start button clicked");
 };
@@ -95,7 +104,7 @@ function startTimer() {
 
         if (timeLeft === 0 || questionNumber === questions.length) {
             clearInterval (timerInterval);
-            quizQ.style.display = "none";
+            quizContent.style.display = "none";
             multipleChoice.style.display = "none";
             score.textContent = timeLeft;
 
@@ -104,15 +113,15 @@ function startTimer() {
 
 };
 
-//quizContent Function - Quiz Question & Answer Display
-function quizContent(x) {
+//playQuiz Function - Quiz Question & Answer Display
+function playQuiz(x) {
 
     if (x < questions.length) {
-         quizQ.textContent = questions[questionNumber].question;
-         mc1.textContent = question[questionNumber].choices[0];
-         mc2.textContent = question[questionNumber].choices[1];
-         mc3.textContent = question[questionNumber].choices[2];
-         mc4.textContent = question[questionNumber].choices[3];
+         questionQ.textContent = questions[questionNumber].question;
+         mc1.textContent = questions[questionNumber].choices[0];
+         mc2.textContent = questions[questionNumber].choices[1];
+         mc3.textContent = questions[questionNumber].choices[2];
+         mc4.textContent = questions[questionNumber].choices[3];
     }
 
 };
