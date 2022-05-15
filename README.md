@@ -1,15 +1,21 @@
-# code-quiz
+# Code Quiz
+
+<h2>Purpose</h2>
+An online game that quizzes you on coding knowledge. All questions must be answered before the timer reaches zero. The user can save their initials and score as well as review the high score history. 
+
+<h2>Built With</h2>
+<ul>
+<li>JavaScript
+<li>CSS
+<li>HTML
+</ul>
+  
+<h2>Website</h2>
+https://natakkuma.github.io/code-quiz/
+
+<h2>Screenshot</h2>
+<img src="https://user-images.githubusercontent.com/95733427/149684672-6be0d314-f3c4-47d3-acfa-ec7a282ce1a5.png">
 
 
-Acceptance Criteria
-GIVEN I am taking a code quiz
-WHEN I click the start button
-THEN a timer starts and I am presented with a question
-WHEN I answer a question
-THEN I am presented with another question
-WHEN I answer a question incorrectly
-THEN time is subtracted from the clock
-WHEN all questions are answered or the timer reaches 0
-THEN the game is over
-WHEN the game is over
-THEN I can save my initials and score
+<h2>Contribution</h2>
+Made with ❤️ by Natakkuma
