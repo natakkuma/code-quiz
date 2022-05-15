@@ -62,13 +62,19 @@
     var finalScore = document.getElementById("finalScore");
      
     //Player Initials Form Variables
+    var playerInitialsInput = document.getElementById("playerInitials");
+    var submitInitialBtn = document.getElementById("submitInitialBtn");
 
     //High Score List Variables
+    var viewScoresBtn = document.getElementById("viewScores");
+    var highScores = document.getElementById("highScores");
+    var scoreList = document.getElementById("scoreList");
+    var returnBtn = document.getElementById("returnBtn");
 
     //Quiz Scoring Variables
     var score = 0;
-    var timeLeft = 0;
-    var quizPoints = 0;
+    var timer = 0;
+    var scoreFinal;
     var questionNumber = 0;
 
 //Functions
@@ -82,7 +88,7 @@ function startQuiz() {
     quizContent.style.display = "block";
 
     //Set Time
-    timeLeft = 75;
+    timer = 75;
     startTimer();
 
     //Set Questions
@@ -99,14 +105,14 @@ startBtn.addEventListener("click", startQuiz);
 function startTimer() {
 
     let timerInterval = setInterval (function (){
-        timeLeft--;
-        timeDisplay.textContent = '${timeLeft} seconds';
+        timer --;
+        timeDisplay.textContent = '${timer} seconds';
 
-        if (timeLeft === 0 || questionNumber === questions.length) {
+        if (timer === 0 || questionNumber === questions.length) {
             clearInterval (timerInterval);
             quizContent.style.display = "none";
             multipleChoice.style.display = "none";
-            score.textContent = timeLeft;
+            score.textContent = timer;
 
         }
     }, 1000);
