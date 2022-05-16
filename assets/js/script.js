@@ -73,62 +73,67 @@
 
     //Quiz Scoring Variables
     var score = 0;
-    var timer = 0;
+    var questionIndex = 0;
     var scoreFinal;
     var questionNumber = 0;
+    var totalTime = 100;
 
-//Functions
+
+//FUNCTIONS
 
 //QUIZ PLAY
 //startQuiz Function - To Start Quiz
 function startQuiz() {
     
-    //Display Quiz Content
+    //Q
+    questionIndex = 0;
+
+    //Timer
+    totalTime = 99;
+    timeDisplay.textContent = totalTime;
+    playerInitialsInput.textContent = "";
+
+    //Display Quiz Content & Timer
     quizStart.style.display = "none";
     quizContent.style.display = "block";
-
-    //Set Time
-    timer = 75;
-    startTimer();
+    timer.style.display = "block";
 
     //Set Questions
-    playQuiz(questionNumber);
+    playQuiz();
 
     console.log("start button clicked");
-};
 
-//EventListener
-//When Start Quiz Button is Clicked - startQuiz Function Starts
-startBtn.addEventListener("click", startQuiz);
+    //startTimer Function - Timer Starts 
+    function startTimer() {
 
-//startTimer Function - Timer Starts 
-function startTimer() {
+        let timerInterval = setInterval (function (){
+            totalTime--;
+            timeDisplay.textContent = totalTime;
 
-    let timerInterval = setInterval (function (){
-        timer --;
-        timeDisplay.textContent = '${timer} seconds';
+            if (timer === 0 || questionNumber === questions.length) {
+                clearInterval (timerInterval);
+                quizContent.style.display = "none";
+                multipleChoice.style.display = "none";
+                score.textContent = timer;
 
-        if (timer === 0 || questionNumber === questions.length) {
-            clearInterval (timerInterval);
-            quizContent.style.display = "none";
-            multipleChoice.style.display = "none";
-            score.textContent = timer;
+            }
+        }, 1000);
 
-        }
-    }, 1000);
+    };
+
+    //Set Time
+    startTimer();
 
 };
 
 //playQuiz Function - Quiz Question & Answer Display
-function playQuiz(x) {
+function playQuiz() {
 
-    if (x < questions.length) {
-         questionQ.textContent = questions[questionNumber].question;
-         mc1.textContent = questions[questionNumber].choices[0];
-         mc2.textContent = questions[questionNumber].choices[1];
-         mc3.textContent = questions[questionNumber].choices[2];
-         mc4.textContent = questions[questionNumber].choices[3];
-    }
+    questionQ.textContent = questions[questionIndex].question;
+    mc1.textContent = questions[questionIndex].choices[0];
+    mc2.textContent = questions[questionIndex].choices[1];
+    mc3.textContent = questions[questionIndex].choices[2];
+    mc4.textContent = questions[questionIndex].choices[3];
 
 };
 
@@ -136,22 +141,56 @@ function playQuiz(x) {
 //checkAnswer Function - Checks answer selected by user
 function checkAnswer(answer) {
 
-    //check if correct
-    if (questions[questionNumber].correctAnswer === questions[questionNumber].choices[correctAnswer]) {
+    //display correct or wrong
+    answerCheck.style.display = "block";
 
-        //correct - increase score
-        //correct - alert correct
-
+    if (questions[questionIndex].answer === questions[questionIndex].choices[correctAnswer]) {
+        //if correct answer, add 1 score to final score
+        score++;
+       
+        answerCheck.textContent = "Correct!";
+    } else {
+        // else wrong answer, deduct 5 seconds from time
+        totalTime -= 5;
+        timeLeft.textContent = totalTime;
+        answerCheck.textContent = "Wrong! The correct answer is " + questions[questionIndex].answer + ".";
     }
-    // if incorrect
-    else {
-        //wrong answer - deduct 10 sec
-        //wrong answer - alert wrong & provide correct answer
+
+    questionIndex++;
+    //continue with the remaining questions 
+    if (questionIndex < questions.length) {
+        playQuiz();
+    } else {
+        // if no more question, run game over function
+        endGame();
     }
 }
 
-//APPLICATIONS
+//ANSWER SELECTION FUNCTIONS
+    function select1() { checkAnswer(0); }
+    function select2() { checkAnswer(1); }
+    function select3() { checkAnswer(2); }
+    function select4() { checkAnswer(3); }
+
+//END GAME & DISPLAY SCORE FUNCTION
+    function endGame() {
+        scoreDisplay.style.display = "block";
+        quizContent.style.display = "none";
+        quizIntro.style.display = "none";
+        timer.style.display = "none";
+        timeDisplay.style.display = "block";
+
+        // show final score
+        finalScore.textContent = score;
+    }
+
+//FUNCTION - ENTER PLAYER SCORE & COMPILE SCORE LIST IN LOCAL STORAGE
+
+//FUNCTION - DISPLAY HIGH SCORES LIST
 
 //EVENT LISTENERS
+
+//When Start Quiz Button is Clicked - startQuiz Function Starts
+startBtn.addEventListener("click", startQuiz);
 
 
