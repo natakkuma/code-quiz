@@ -106,7 +106,9 @@ function startQuiz() {
     //startTimer Function - Timer Starts 
     function startTimer() {
 
-        let timerInterval = setInterval (function (){
+        let timerInterval = setInterval (function ()
+        
+        {
             totalTime--;
             timeDisplay.textContent = totalTime;
 
@@ -128,6 +130,7 @@ function startQuiz() {
 
 //playQuiz Function - Quiz Question & Answer Display
 function playQuiz() {
+    quizContent.style.display = "block";
 
     questionQ.textContent = questions[questionIndex].question;
     mc1.textContent = questions[questionIndex].choices[0];
@@ -145,12 +148,12 @@ function checkAnswer(answer) {
     answerCheck.style.display = "block";
 
     if (questions[questionIndex].answer === questions[questionIndex].choices[correctAnswer]) {
-        //if correct answer, add 1 score to final score
+        //IF correct answer, add 1 score to final score
         score++;
        
         answerCheck.textContent = "Correct!";
     } else {
-        // else wrong answer, deduct 5 seconds from time
+        //ELSE wrong answer, deduct 5 seconds from time
         totalTime -= 5;
         timeLeft.textContent = totalTime;
         answerCheck.textContent = "Wrong! The correct answer is " + questions[questionIndex].answer + ".";
@@ -161,7 +164,7 @@ function checkAnswer(answer) {
     if (questionIndex < questions.length) {
         playQuiz();
     } else {
-        // if no more question, run game over function
+        // if no more questions, end game
         endGame();
     }
 }
@@ -192,5 +195,12 @@ function checkAnswer(answer) {
 
 //When Start Quiz Button is Clicked - startQuiz Function Starts
 startBtn.addEventListener("click", startQuiz);
+
+//When an MC answer is clicked - select function starts
+mc1.addEventListener("click", select1);
+mc2.addEventListener("click", select2);
+mc3.addEventListener("click", select3);
+mc4.addEventListener("click", select4);
+
 
 
