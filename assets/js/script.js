@@ -183,15 +183,84 @@ function checkAnswer(answer) {
         timer.style.display = "none";
         timeDisplay.style.display = "block";
 
-        // show final score
+        //Show Player Final Score
         finalScore.textContent = score;
     }
 
 //FUNCTION - ENTER PLAYER SCORE & COMPILE SCORE LIST IN LOCAL STORAGE
+function storeScores(event) {
+    
+    event.preventDefault();
+
+    //Check if player initials were inputted
+    if (playerInitialsInput.value === "") {
+        alert("Please enter your initials.");
+        return;
+    } 
+
+    quizStart.style.display = "none";
+    timer.style.display = "none";
+    timeDisplay.style.display = "none";
+    scoreDisplay.style.display = "none";
+    highScores.style.display = "block";   
+
+    //Store scores in local storage
+    var savedScores = localStorage.getItem("high scores");
+    var scoresArray;
+
+    if (savedScores === null) {
+        scoresArray = [];
+    } else {
+        scoresArray = JSON.parse(savedScores)
+    }
+
+    var playerScore = {
+        initials: initialInput.value,
+        score: finalScore.textContent
+    };
+
+    console.log(playerScore);
+    scoresArray.push(playerScore);
+
+    //Stringify Array for Local Storage
+    var scoresArrayString = JSON.stringify(scoresArray);
+    window.localStorage.setItem("high scores", scoresArrayString);
+    
+    //Display high scores
+    displayHighScores();
+}
 
 //FUNCTION - DISPLAY HIGH SCORES LIST
+var i = 0;
+function displayHighScores() {
+
+    quizStart.style.display = "none";
+    timer.style.display = "none";
+    quizContent.style.display = "none";
+    timesDisplay.style.display = "none";
+    scoreDisplay.style.display = "none";
+    highScores.style.display = "block";
+
+    var savedScores = localStorage.getItem("high scores");
+
+    // check if there is any in local storage
+    if (savedScores === null) {
+        return;
+    }
+    console.log(savedScores);
+
+    var storedScores = JSON.parse(savedScores);
+
+    for (; i < storedScores.length; i++) {
+        var newScore = document.createElement("p");
+        newScore.innerHTML = storedScores[i].initials + ": " + storedScores[i].score;
+        scoreList.appendChild(newScore);
+    }
+}
 
 //EVENT LISTENERS
+
+//QUIZ
 
 //When Start Quiz Button is Clicked - startQuiz Function Starts
 startBtn.addEventListener("click", startQuiz);
@@ -201,6 +270,19 @@ mc1.addEventListener("click", select1);
 mc2.addEventListener("click", select2);
 mc3.addEventListener("click", select3);
 mc4.addEventListener("click", select4);
+
+
+//SCORE SUBMISSION
+
+//When Player Initials and Scores are submitted - Scores are stored locally
+submitInitialBtn.addEventListener("click", function(event){ 
+    storeHighScores(event);
+});
+
+//When View Scores Button is Clicked - Score List Appears
+viewScoresBtn.addEventListener("click", function(event) { 
+    showScores(event);
+});
 
 
 
