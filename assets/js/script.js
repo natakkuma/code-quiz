@@ -112,6 +112,10 @@ function startQuiz() {
             totalTime--;
             timeDisplay.textContent = totalTime;
 
+            if (timer<0){
+                timer = 0
+            }
+
             if (timer === 0 || questionNumber === questions.length) {
                 clearInterval (timerInterval);
                 quizContent.style.display = "none";
@@ -130,7 +134,7 @@ function startQuiz() {
 
 //playQuiz Function - Quiz Question & Answer Display
 function playQuiz() {
-    quizContent.style.display = "block";
+    //quizContent.style.display = "block";
 
     questionQ.textContent = questions[questionIndex].question;
     mc1.textContent = questions[questionIndex].choices[0];
