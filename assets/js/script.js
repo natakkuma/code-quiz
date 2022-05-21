@@ -97,6 +97,7 @@ function startQuiz() {
     quizStart.style.display = "none";
     quizContent.style.display = "block";
     timer.style.display = "block";
+    timeDisplay.style.display = "block";
 
     //Set Questions
     playQuiz();
@@ -189,10 +190,10 @@ function scoreAnswer(answer) {
         quizContent.style.display = "none";
         quizIntro.style.display = "none";
         timer.style.display = "none";
-        timeDisplay.style.display = "block";
+        timeDisplay.style.display = "none";
 
         //Show Player Final Score
-        finalScore.textContent = score;
+        finalScore.textContent = score + totalTime;
     }
 
 //FUNCTION - ENTER PLAYER SCORE & COMPILE SCORE LIST IN LOCAL STORAGE
@@ -284,7 +285,7 @@ mc4.addEventListener("click", select4);
 
 //When Player Initials and Scores are submitted - Scores are stored locally
 submitInitialBtn.addEventListener("click", function(event){ 
-    storeHighScores(event);
+    storeScores(event);
 });
 
 //When View Scores Button is Clicked - Score List Appears
