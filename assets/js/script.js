@@ -62,67 +62,81 @@
     var finalScore = document.getElementById("finalScore");
      
     //Player Initials Form Variables
+    var playerInitialsInput = document.getElementById("playerInitials");
+    var submitInitialBtn = document.getElementById("submitInitialBtn");
 
     //High Score List Variables
+    var viewScoresBtn = document.getElementById("viewScores");
+    var highScores = document.getElementById("highScores");
+    var scoreList = document.getElementById("scoreList");
+    var returnBtn = document.getElementById("returnBtn");
 
     //Quiz Scoring Variables
     var score = 0;
-    var timeLeft = 0;
-    var quizPoints = 0;
+    var questionIndex = 0;
+    var scoreFinal;
     var questionNumber = 0;
+    var totalTime = 100;
 
-//Functions
+
+//FUNCTIONS
 
 //QUIZ PLAY
 //startQuiz Function - To Start Quiz
 function startQuiz() {
     
-    //Display Quiz Content
+    //Q
+    questionIndex = 0;
+
+    //Timer
+    totalTime = 99;
+    timeDisplay.textContent = totalTime;
+    playerInitialsInput.textContent = "";
+
+    //Display Quiz Content & Timer
     quizStart.style.display = "none";
     quizContent.style.display = "block";
-
-    //Set Time
-    timeLeft = 75;
-    startTimer();
+    timer.style.display = "block";
 
     //Set Questions
-    playQuiz(questionNumber);
+    playQuiz();
 
     console.log("start button clicked");
-};
 
-//EventListener
-//When Start Quiz Button is Clicked - startQuiz Function Starts
-startBtn.addEventListener("click", startQuiz);
+    //startTimer Function - Timer Starts 
+    function startTimer() {
 
-//startTimer Function - Timer Starts 
-function startTimer() {
+        let timerInterval = setInterval (function ()
+        
+        {
+            totalTime--;
+            timeDisplay.textContent = totalTime;
 
-    let timerInterval = setInterval (function (){
-        timeLeft--;
-        timeDisplay.textContent = '${timeLeft} seconds';
+            if (timer === 0 || questionNumber === questions.length) {
+                clearInterval (timerInterval);
+                quizContent.style.display = "none";
+                multipleChoice.style.display = "none";
+                score.textContent = timer;
 
-        if (timeLeft === 0 || questionNumber === questions.length) {
-            clearInterval (timerInterval);
-            quizContent.style.display = "none";
-            multipleChoice.style.display = "none";
-            score.textContent = timeLeft;
+            }
+        }, 1000);
 
-        }
-    }, 1000);
+    };
+
+    //Set Time
+    startTimer();
 
 };
 
 //playQuiz Function - Quiz Question & Answer Display
-function playQuiz(x) {
+function playQuiz() {
+    quizContent.style.display = "block";
 
-    if (x < questions.length) {
-         questionQ.textContent = questions[questionNumber].question;
-         mc1.textContent = questions[questionNumber].choices[0];
-         mc2.textContent = questions[questionNumber].choices[1];
-         mc3.textContent = questions[questionNumber].choices[2];
-         mc4.textContent = questions[questionNumber].choices[3];
-    }
+    questionQ.textContent = questions[questionIndex].question;
+    mc1.textContent = questions[questionIndex].choices[0];
+    mc2.textContent = questions[questionIndex].choices[1];
+    mc3.textContent = questions[questionIndex].choices[2];
+    mc4.textContent = questions[questionIndex].choices[3];
 
 };
 
@@ -130,22 +144,145 @@ function playQuiz(x) {
 //checkAnswer Function - Checks answer selected by user
 function checkAnswer(answer) {
 
-    //check if correct
-    if (questions[questionNumber].correctAnswer === questions[questionNumber].choices[correctAnswer]) {
+    //display correct or wrong
+    answerCheck.style.display = "block";
 
-        //correct - increase score
-        //correct - alert correct
-
+    if (questions[questionIndex].answer === questions[questionIndex].choices[correctAnswer]) {
+        //IF correct answer, add 1 score to final score
+        score++;
+       
+        answerCheck.textContent = "Correct!";
+    } else {
+        //ELSE wrong answer, deduct 5 seconds from time
+        totalTime -= 5;
+        timeLeft.textContent = totalTime;
+        answerCheck.textContent = "Wrong! The correct answer is " + questions[questionIndex].answer + ".";
     }
-    // if incorrect
-    else {
-        //wrong answer - deduct 10 sec
-        //wrong answer - alert wrong & provide correct answer
+
+    questionIndex++;
+    //continue with the remaining questions 
+    if (questionIndex < questions.length) {
+        playQuiz();
+    } else {
+        // if no more questions, end game
+        endGame();
     }
 }
 
-//APPLICATIONS
+//ANSWER SELECTION FUNCTIONS
+    function select1() { checkAnswer(0); }
+    function select2() { checkAnswer(1); }
+    function select3() { checkAnswer(2); }
+    function select4() { checkAnswer(3); }
+
+//END GAME & DISPLAY SCORE FUNCTION
+    function endGame() {
+        scoreDisplay.style.display = "block";
+        quizContent.style.display = "none";
+        quizIntro.style.display = "none";
+        timer.style.display = "none";
+        timeDisplay.style.display = "block";
+
+        //Show Player Final Score
+        finalScore.textContent = score;
+    }
+
+//FUNCTION - ENTER PLAYER SCORE & COMPILE SCORE LIST IN LOCAL STORAGE
+function storeScores(event) {
+    
+    event.preventDefault();
+
+    //Check if player initials were inputted
+    if (playerInitialsInput.value === "") {
+        alert("Please enter your initials.");
+        return;
+    } 
+
+    quizStart.style.display = "none";
+    timer.style.display = "none";
+    timeDisplay.style.display = "none";
+    scoreDisplay.style.display = "none";
+    highScores.style.display = "block";   
+
+    //Store scores in local storage
+    var savedScores = localStorage.getItem("high scores");
+    var scoresArray;
+
+    if (savedScores === null) {
+        scoresArray = [];
+    } else {
+        scoresArray = JSON.parse(savedScores)
+    }
+
+    var playerScore = {
+        initials: initialInput.value,
+        score: finalScore.textContent
+    };
+
+    console.log(playerScore);
+    scoresArray.push(playerScore);
+
+    //Stringify Array for Local Storage
+    var scoresArrayString = JSON.stringify(scoresArray);
+    window.localStorage.setItem("high scores", scoresArrayString);
+    
+    //Display high scores
+    displayHighScores();
+}
+
+//FUNCTION - DISPLAY HIGH SCORES LIST
+var i = 0;
+function displayHighScores() {
+
+    quizStart.style.display = "none";
+    timer.style.display = "none";
+    quizContent.style.display = "none";
+    timesDisplay.style.display = "none";
+    scoreDisplay.style.display = "none";
+    highScores.style.display = "block";
+
+    var savedScores = localStorage.getItem("high scores");
+
+    // check if there is any in local storage
+    if (savedScores === null) {
+        return;
+    }
+    console.log(savedScores);
+
+    var storedScores = JSON.parse(savedScores);
+
+    for (; i < storedScores.length; i++) {
+        var newScore = document.createElement("p");
+        newScore.innerHTML = storedScores[i].initials + ": " + storedScores[i].score;
+        scoreList.appendChild(newScore);
+    }
+}
 
 //EVENT LISTENERS
+
+//QUIZ
+
+//When Start Quiz Button is Clicked - startQuiz Function Starts
+startBtn.addEventListener("click", startQuiz);
+
+//When an MC answer is clicked - select function starts
+mc1.addEventListener("click", select1);
+mc2.addEventListener("click", select2);
+mc3.addEventListener("click", select3);
+mc4.addEventListener("click", select4);
+
+
+//SCORE SUBMISSION
+
+//When Player Initials and Scores are submitted - Scores are stored locally
+submitInitialBtn.addEventListener("click", function(event){ 
+    storeHighScores(event);
+});
+
+//When View Scores Button is Clicked - Score List Appears
+viewScoresBtn.addEventListener("click", function(event) { 
+    showScores(event);
+});
+
 
 
