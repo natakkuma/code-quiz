@@ -25,35 +25,35 @@
         {
             question: "Commonly used data types do NOT include:",
             choices: ["1. booleans", "2. strings", "3. parentheses", "4. numbers"],
-            correctAnswer: "1"
+            answer: "1. booleans"
         },
 
         //Question 2
         {
             question: "The condition in an if / else statment is enclosed within _________.",
             choices: ["1. curly brackets", "2. quotes", "3. parentheses", "4. square brackets"],
-            correctAnswer: "2"
+            answer: "2. quotes"
         },
 
         //Question 3
         {
             question: "Arrays in Javascript can be used to store _________.",
             choices: ["1. numbers and strings", "2. other arrays", "3. booleans", "4. all of the above"],
-            correctAnswer: "3"
+            answer: "3. booleans"
         },
 
         //Question 4
         {
             question: "String values must be enclosed within ________ when being assigned to variables.",
             choices: ["1. commmas", "2. parentheses", "3. quotes", "4. curly brackets"],
-            correctAnswer: "4"
+            answer: "4. curly brackets"
         },
 
         //Question 5
         {
             question: "A very useful tool used during development and debugging for printing content to the debugger is:",
             choices: ["1. Javascript", "2. terminal/bash", "3. for loops", "4. console.log"],
-            correctAnswer: "3"
+            answer: "3. for loops"
         }
     ];
 
@@ -76,7 +76,7 @@
     var questionIndex = 0;
     var scoreFinal;
     var questionNumber = 0;
-    var totalTime = 100;
+    var totalTime = 30;
 
 
 //FUNCTIONS
@@ -89,7 +89,7 @@ function startQuiz() {
     questionIndex = 0;
 
     //Timer
-    totalTime = 99;
+    totalTime = 29;
     timeDisplay.textContent = totalTime;
     playerInitialsInput.textContent = "";
 
@@ -110,7 +110,7 @@ function startQuiz() {
         
         {
             totalTime--;
-            timeDisplay.textContent = totalTime;
+            timeDisplay.textContent ="Time:" + totalTime;
 
             if (timer<0){
                 timer = 0
@@ -145,39 +145,43 @@ function playQuiz() {
 };
 
 //QUIZ SCORING
-//checkAnswer Function - Checks answer selected by user
-function checkAnswer(answer) {
+//scoreAnswer Function - Checks answer selected by user and gives points if applicable
+function scoreAnswer(answer) {
 
     //display correct or wrong
-    answerCheck.style.display = "block";
+    checkAnswer.style.display = "block";
 
-    if (questions[questionIndex].answer === questions[questionIndex].choices[correctAnswer]) {
+    if (questions[questionIndex].answer === questions[questionIndex].choices[answer]) {
         //IF correct answer, add 1 score to final score
         score++;
        
-        answerCheck.textContent = "Correct!";
+        checkAnswer.textContent = "Correct!";
     } else {
         //ELSE wrong answer, deduct 5 seconds from time
         totalTime -= 5;
-        timeLeft.textContent = totalTime;
-        answerCheck.textContent = "Wrong! The correct answer is " + questions[questionIndex].answer + ".";
+        timeDisplay.textContent = "Time:" + totalTime;
+        checkAnswer.textContent = "Wrong! The correct answer is " + questions[questionIndex].answer + ".";
     }
 
     questionIndex++;
+
     //continue with the remaining questions 
     if (questionIndex < questions.length) {
         playQuiz();
-    } else {
+
+    } 
+    
+    else {
         // if no more questions, end game
         endGame();
     }
 }
 
 //ANSWER SELECTION FUNCTIONS
-    function select1() { checkAnswer(0); }
-    function select2() { checkAnswer(1); }
-    function select3() { checkAnswer(2); }
-    function select4() { checkAnswer(3); }
+    function select1() { scoreAnswer(0); }
+    function select2() { scoreAnswer(1); }
+    function select3() { scoreAnswer(2); }
+    function select4() { scoreAnswer(3); }
 
 //END GAME & DISPLAY SCORE FUNCTION
     function endGame() {
@@ -219,7 +223,7 @@ function storeScores(event) {
     }
 
     var playerScore = {
-        initials: initialInput.value,
+        initials: playerInitialsInput.value,
         score: finalScore.textContent
     };
 
@@ -241,7 +245,7 @@ function displayHighScores() {
     quizStart.style.display = "none";
     timer.style.display = "none";
     quizContent.style.display = "none";
-    timesDisplay.style.display = "none";
+    timeDisplay.style.display = "none";
     scoreDisplay.style.display = "none";
     highScores.style.display = "block";
 
@@ -285,8 +289,11 @@ submitInitialBtn.addEventListener("click", function(event){
 
 //When View Scores Button is Clicked - Score List Appears
 viewScoresBtn.addEventListener("click", function(event) { 
-    showScores(event);
+    displayHighScores(event);
 });
 
-
-
+//Return to Home Page Button 
+returnBtn.addEventListener("click", function() {
+    quizStart.style.display = "block";
+    highScores.style.display = "none";
+});
