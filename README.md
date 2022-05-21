@@ -14,7 +14,9 @@ An online game that quizzes you on coding knowledge. All questions must be answe
 https://natakkuma.github.io/code-quiz/
 
 <h2>Screenshot</h2>
-<img src="https://user-images.githubusercontent.com/95733427/149684672-6be0d314-f3c4-47d3-acfa-ec7a282ce1a5.png">
+<img src="https://user-images.githubusercontent.com/95733427/169659839-3d007de4-b1f2-4e8e-9017-4d3488147723.png">
+
+
 
 
 <h2>Contribution</h2>
